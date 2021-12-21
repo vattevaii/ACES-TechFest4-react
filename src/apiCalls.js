@@ -1,4 +1,11 @@
 import axios from 'axios'
-const coronaInfo = () => {
-   axios.get('https://corona.askbhunte.com/api/v1/data/nepal')
+
+const API = axios.create('https://corona.askbhunte.com/api/v1/');
+
+const coronaInfo = async () => {
+   return await API.get("data/nepal");
+}
+
+export {
+   coronaInfo
 }
