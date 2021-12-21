@@ -1,0 +1,13 @@
+.breadcrumb-item.active>a{
+  text-decoration: none;
+  pointer-events: none;
+  color:inherit;
+}
+
+@media screen and (max-width:576px) {
+.navbar-expand-sm{
+  .navbar-nav{
+    flex-basis: 100%;
+  }
+}
+}
