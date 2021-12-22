@@ -1,5 +1,4 @@
 import { lazy } from 'react';
-import FOF from './static/404'
 
 import Home from './routes/Home';
 const NewApp = lazy(() => import('./routes/App'));

@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@chakra-ui/toast": "^1.5.0",
     "@testing-library/jest-dom": "^5.16.1",
     "@testing-library/react": "^12.1.2",
     "@testing-library/user-event": "^13.5.0",
@@ -41,5 +42,6 @@
   },
   "devDependencies": {
     "react-router-dom": "^6.1.1"
-  }
+  },
+  "proxy": "https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&cad=rja&uact=8&ved=2ahUKEwiEu6m1hvX0AhXGc94KHaXZDK0QFnoECAYQAQ&url=https%3A%2F%2Fjsonplaceholder.typicode.com%2F&usg=AOvVaw2IMo4TW3obs3vMtD57J6cJ"
 }

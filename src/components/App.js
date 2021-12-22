@@ -3,11 +3,11 @@ import { Loading, Errorboundary } from '../static';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { BreadCrumb, NavBar } from '.'
 import { Navbar, Container } from "react-bootstrap"
+import ChatBot from "./ChatBot.js"
 import './App.scss'
 import routes from '../routes';
 import proutes from '../routesPrivate'
 import PRoute from '../static/PrivateRoute'
-import About from '../routes/About';
 
 const App = () => (
   <>
@@ -30,6 +30,7 @@ const App = () => (
               }
             </Route>
           </Routes>
+          <ChatBot />
         </Suspense>
       </Errorboundary>
     </Router></>
