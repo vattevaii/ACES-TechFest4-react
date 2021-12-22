@@ -43,6 +43,7 @@ const OffCanvas = () => {
             <Nav.Link as={Link} to="/about" className='px-2'>Settings</Nav.Link>
             <Nav.Link as={Link} to="/records" className='px-2'>Records</Nav.Link>
             <Nav.Link as={Link} to="/posts" className='px-2'>Posts</Nav.Link>
+            <Nav.Link as={Link} to="/newregister" className='px-2'>New Person Register</Nav.Link>
          </Nav>
       </Offcanvas.Body>
    </Navbar.Offcanvas >)

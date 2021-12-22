@@ -10,12 +10,13 @@ let headers = {
    "Access-Control-Allow-Origin": "*",
 };
 const coronaInfo = () => axios.get(baseURL, { headers })
-const userRegister = (info) => axios.post("http://localhost:5000/api/auth/register", { ...info, headers })
-const personRegister = (info) => axios.post("http://localhost:5000/api/auth/register", { ...info, headers })
+const userRegister = (info) => axios.post("http://localhost:8080/api/auth/register", { ...info, headers })
+const personRegister = (info) => axios.post("http://localhost:8080/api/users", { ...info, headers })
+const getPerson = (info) => axios.get(`http://localhost:8080/api/users/${info.majorId}`, { headers })
 
 // axios.get("https://jsonplaceholder.typicode.com/posts/1", axiosConfig).then((r) => console.log(r));
 export {
-   coronaInfo, userRegister, personRegister
+   coronaInfo, userRegister, personRegister, getPerson
 }
 
 // JSONPlaceholder - Free Fake REST API

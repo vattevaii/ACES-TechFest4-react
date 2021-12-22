@@ -1,11 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Card, Container, Nav } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { userRegister, personRegister } from '../apiCalls'
 import { useLocation } from "react-router-dom"
 export default function Register() {
-   const { state: { majorId, email, password } } = useLocation()
-   console.log(majorId, email, password)
+   const { state: { majorId } } = useLocation()
+   // console.log(majorId)
    // States for registration
    const [majId, setMajId] = useState(majorId ? majorId : "");
    const [fname, setFname] = useState('');
@@ -47,14 +47,11 @@ export default function Register() {
          setAdError("");
          formIsValid = true;
       }
-      if (!age.match(/^[0-9]$/)) {
-         formIsValid = false;
-         setAError("Age Not Valid. Must be number.(0-9)");
+      if (age < 10 && age > 99) {
+         setAError("Age out of range")
          return false;
-      } else {
-         if (age < 10 && age > 99) {
-            setAError("Age out of range"); return false
-         }
+      }
+      else {
          setAError("");
          formIsValid = true;
       }
@@ -73,26 +70,18 @@ export default function Register() {
       return formIsValid;
    };
    // Handling the form submission
+   const navigate = useNavigate();
    const handleSubmit = async (e) => {
       e.preventDefault();
       if (handleValidation(e)) {
          setSubmitted(true);
-         if (majorId) {
-            try {
-               const response = await userRegister({ majorId, email, password })
-               setSubmitted(true);
-            }
-            catch (e) {
-               console.log(e.response.data);
-            }
-         } else {
-            try {
-               const response2 = await personRegister({ majId, fname, lname, age, address })
-               setSubmitted(true);
-            }
-            catch (e) {
-               console.log(e.response.data + " in file RegisterPerson");
-            }
+         try {
+            const response = await personRegister({ majorId: majId, firstName: fname, lastName: lname, age, address })
+            navigate("/register")
+            setSubmitted(true);
+         }
+         catch (e) {
+            console.log(e.response.data + " in file RegisterPerson");
          }
       }
    };
@@ -175,7 +164,7 @@ export default function Register() {
                         className="form-control"
                         name="address"
                         aria-describedby="address"
-                        placeholder="Last Name"
+                        placeholder="Address"
                         value={address}
                         onChange={handleAddress}
                      />
