@@ -1,8 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Card, Nav } from 'react-bootstrap'
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { login } from "../../apiCalls";
+import { useStateValue } from "../../states/userProvider";
 
 function Login() {
+   const navigate = useNavigate()
+   const [state, dispatch] = useStateValue()
    const [password, setPassword] = useState("");
    const [email, setEmail] = useState("");
    const [passwordError, setpasswordError] = useState("");
@@ -20,10 +24,10 @@ function Login() {
          formIsValid = true;
       }
 
-      if (!password.match(/^[a-zA-Z]{8,22}$/)) {
+      if (!password.match(/^[a-zA-Z0-9]{8,22}$/)) {
          formIsValid = false;
          setpasswordError(
-            "Only Letters and length must best min 8 Chracters and Max 22 Chracters"
+            "Only Letters and number and must be min 8 Chracters and Max 22 Chracters"
          );
          return false;
       } else {
@@ -37,7 +41,13 @@ function Login() {
    const loginSubmit = (e) => {
       e.preventDefault();
       handleValidation();
+      try {
+         login({ email, password }, dispatch);
+         navigate('/')
+      }
+      catch (err) { console.log(err) }
    };
+   // console.log(state.user)
 
    return (
       <div className="container">

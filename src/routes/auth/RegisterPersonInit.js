@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Card, Container, Nav } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
-import { getPerson } from '../apiCalls'
+import { getPerson } from '../../apiCalls'
 
 export default function Register() {
    // States for registration
@@ -35,12 +35,12 @@ export default function Register() {
             setLoading(true);
             let u = await getPerson({ majorId });
             // console.log(u)
-            setUser(u.data)
+            setUser(u.data.person)
             setLoading(false);
          }
          catch (e) {
             // console.log(e.response.data);
-            if (e.response.status == 404)
+            if (e.response.status === 404)
                navigate('/pregister', { state: { majorId } })
          }
       };

@@ -27,7 +27,7 @@ function DashboardMini() {
    useEffect(() => {
       coronaInfo().then((response) => {
          changeState(response.data);
-         console.log(response.data)
+         // console.log(response.data)
          setLoading("Loaded")
       }).catch((e) => setLoading("Error"));
       // coronaInfo()

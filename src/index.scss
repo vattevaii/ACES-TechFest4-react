@@ -10,3 +10,11 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
 }
+
+form img {
+  height: 100%;
+  width: auto;
+}
+form img:hover {
+  filter: invert(100%) contrast(0%);
+}

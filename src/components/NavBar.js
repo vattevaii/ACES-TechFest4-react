@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Navbar, Nav, Container, Dropdown, Form, FormControl, Offcanvas } from 'react-bootstrap'
 // import { BreadCrumb } from '.';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useStateValue } from '../states/userProvider'
 
 const SearchBar = () => {
@@ -43,13 +43,23 @@ const OffCanvas = () => {
             <Nav.Link as={Link} to="/about" className='px-2'>Settings</Nav.Link>
             <Nav.Link as={Link} to="/records" className='px-2'>Records</Nav.Link>
             <Nav.Link as={Link} to="/posts" className='px-2'>Posts</Nav.Link>
-            <Nav.Link as={Link} to="/newregister" className='px-2'>New Person Register</Nav.Link>
+            <Nav.Link as={Link} to="/register/person" className='px-2'>New Person Register</Nav.Link>
+            <Nav.Link as={Link} to='/posts/create' className='px-2'>Ask Community</Nav.Link>
+            <hr></hr>
+
          </Nav>
       </Offcanvas.Body>
    </Navbar.Offcanvas >)
 }
 function NavBar() {
-   const { user } = useStateValue()[0];
+   const [{ user }, dispatch] = useStateValue();
+   const navigate = useNavigate()
+   const handleLogout = () => {
+      localStorage.removeItem('jwt')
+      localStorage.removeItem('user')
+      dispatch({ type: "DEL_TOKEN" })
+      navigate('/login')
+   }
    return (
       <Navbar bg="dark" variant="dark" expand={false} className='flex-nowrap'>
          <Container>
@@ -62,15 +72,17 @@ function NavBar() {
             </div>
             {user ? (<Dropdown>
                <Dropdown.Toggle variant="success" id="basic-nav-dropdown">
-                  Dropdown Button
+                  {/* {console.log(JSON.parse(user))} */}
                </Dropdown.Toggle>
                <Dropdown.Menu style={{ right: "0", left: "auto", marginTop: "5px" }}>
-                  <Dropdown.Item href="#action/3.1">Action</Dropdown.Item>
+                  <Dropdown.Item as={Link} to='/posts/create'>Ask Community</Dropdown.Item>
                   <Dropdown.Item href="#action/3.2">Another action</Dropdown.Item>
                   <Dropdown.Item href="#action/3.3">Something</Dropdown.Item>
                   <Dropdown.Divider />
-                  <Dropdown.Header>Others</Dropdown.Header>
-                  <Dropdown.Item href="#action/3.4">Separated link</Dropdown.Item>
+                  {user.isExpert ? <><Dropdown.Header>Expert</Dropdown.Header>
+                     <Dropdown.Item as={Link} to='/records/create'>Create Record</Dropdown.Item></> : ""}
+                  <Dropdown.Divider />
+                  <Dropdown.Item onClick={handleLogout}>LogOut</Dropdown.Item>
                </Dropdown.Menu>
             </Dropdown>) : (<Nav.Link as={Link} to='/login' className='px-2'>Login/Register</Nav.Link>)
             }

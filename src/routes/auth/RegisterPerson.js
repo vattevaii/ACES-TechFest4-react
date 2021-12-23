@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Card, Container, Nav } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
-import { userRegister, personRegister } from '../apiCalls'
+import { userRegister, personRegister } from '../../apiCalls'
 import { useLocation } from "react-router-dom"
 export default function Register() {
    const { state: { majorId } } = useLocation()

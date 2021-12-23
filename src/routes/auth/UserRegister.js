@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Card, Container, Nav } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
-import { userRegister, getPerson } from '../apiCalls'
+import { userRegister, getPerson } from '../../apiCalls'
 // import useToast from "@chakra-ui/toast"
 
 export default function Register() {
@@ -83,12 +83,12 @@ export default function Register() {
             const response = await getPerson({ majorId });
             console.log(response.data)
             const { data: { user, accessToken } } = await userRegister({ majorId, email, password })
-            console.log(user);
+            // console.log(user);
             setSubmitted(true);
          }
          catch (e) {
             // console.log(e.response.data);
-            if (e.response.status == 404)
+            if (e.response.status === 404)
                navigate('/pregister', { state: { majorId } })
          }
       };
