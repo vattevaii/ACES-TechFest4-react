@@ -48,12 +48,13 @@ const getRecords = ({ type, id }) => {
    return axios.get(`http://localhost:8080/api/records/majorId/${id}`, { headers })
 }
 const toDbRecords = (info) => axios.post("http://localhost:8080/api/records/", { ...info }, { headers })
-
+const sendQuestion = (info) => axios.post(`http://10.10.10.236:5000/chatbot/${info}`, { headers })
 // axios.get("https://jsonplaceholder.typicode.com/posts/1", axiosConfig).then((r) => console.log(r));
 export {
    coronaInfo, userRegister, personRegister, getPerson, getPersonbyId,
    login, createPost, imgUpload, getPosts, throwDownVote,
-   throwUpVote, getRecords, getPostById, getCommentsByPostId, toDbRecords
+   throwUpVote, getRecords, getPostById, getCommentsByPostId, toDbRecords,
+   sendQuestion
 }
 
 // JSONPlaceholder - Free Fake REST API

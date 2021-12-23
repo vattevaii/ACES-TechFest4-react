@@ -2,6 +2,7 @@ import { useState } from "react";
 import "./Chatbot.scss"
 import conversation from "../static/conversation.png"
 import { Card, ListGroup, ListGroupItem } from "react-bootstrap";
+import { sendQuestion } from "../apiCalls";
 
 const MessageBox = ({ closeBox, open }) => {
    const [questionAnswer, addQues] = useState([
@@ -9,6 +10,23 @@ const MessageBox = ({ closeBox, open }) => {
       { type: "answer", item: "You can get here by turning left." }
    ]);
    const [question, setQues] = useState('');
+
+   const postQuestion = () => {
+      addQues((questionAnswer) => [...questionAnswer, {
+         type: "question", item: question
+      }]);
+      sendQuestion(question).then(({ data }) => {
+         addQues((questionAnswer) => [...questionAnswer, {
+            type: "answer", item: data
+         }]);
+         setQues('');
+      }).catch(err => {
+         addQues((questionAnswer) => [...questionAnswer, {
+            type: "error", item: err.message
+         }]);
+         setQues('');
+      })
+   }
    return (
       <Card className={open ? "show" : "notshow"}>
          <Card.Title className="text-white p-3" onClick={closeBox}>Chat for Information</Card.Title>
@@ -28,6 +46,7 @@ const MessageBox = ({ closeBox, open }) => {
                placeholder="Question Me.."
                value={question}
                onChange={(event) => setQues(event.target.value)}
+               onKeyPress={(e) => { if (e.code === "Enter") postQuestion() }}
             />
          </Card.Footer>
       </Card>
